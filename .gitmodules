@@ -1,0 +1,3 @@
+[submodule "libft_garage"]
+	path = libft_garage
+	url = https://github.com/savif4991/libft_garage.git
