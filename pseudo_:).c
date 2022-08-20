@@ -1,3 +1,4 @@
+
 int	main(int argc, char **argv)
 {
 	if (no parameter are specified)

@@ -1,6 +1,6 @@
-typedef struct deck
+typedef struct decue
 {
-	t_deck	*next;
-	t_deck	*prior;
+	struct decue	*next;
+	struct decue	*previous;
 	int		val;
-}	t_deck;
+}	t_decue;
