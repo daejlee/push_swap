@@ -2,7 +2,7 @@
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 CC = cc
-SRC = push_swap.c
+SRC = push_swap.c ops.c
 OBJ = $(SRC:.c=.o)
 #BONUS_SRC = pipex_utils_1_bonus.c pipex_utils_2_bonus.c pipex_bonus.c
 #BONUS_OBJ = pipex_utils_1_bonus.o pipex_utils_2_bonus.o pipex_bonus.o
