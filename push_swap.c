@@ -10,18 +10,31 @@ int	print_err(void)
 	return (1);
 }
 
-int	check_arg(char **argv)
+int	is_int(char **argv)
 {
 	unsigned int	i;
-	unsigned int	j;
+	char			*temp;
 
 	i = 1;
 	while (argv[i])
 	{
-		if (ft_strncmp(ft_itoa(ft_atoi(argv[i])), argv[i], ft_strlen(argv[i])))
+		temp = ft_itoa(ft_atoi(argv[i]));
+		if (ft_strncmp(temp, argv[i], ft_strlen(argv[i])))
+		{
+			free (temp);
 			return (1);
+		}
 		i++;
+		free (temp);
 	}
+	return (0);
+}
+
+int	is_there_dup(char **argv)
+{
+	unsigned int	i;
+	unsigned int	j;
+
 	i = 1;
 	while (argv[i])
 	{
@@ -97,16 +110,35 @@ void	print_stack(t_decue_addr p)
 	ft_printf("-\na\n");
 }
 
+int	check_already_sorted(t_decue *head)
+{
+	while (head && head->next)
+	{
+		if (head->val > head->next->val)
+			return (0);
+		else
+			head = head->next;
+	}
+	ft_printf ("stack already sorted. terminating...\n");
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_decue_addr	p;
 
 	if (argc == 1)
 		return (1);
-	else if (check_arg(argv))
+	else if (is_int(argv) || is_there_dup(argv))
 		return (print_err());
 	if (push_args_to_a(argv, &p))
 		return (1);
 	print_stack(p);
+	if (check_already_sorted(p.a_top))
+	{
+		purge_lst(p.a_top);
+		return (0);
+	}
+	purge_lst(p.a_top);
 	return (0);
 }
