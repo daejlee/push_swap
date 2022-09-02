@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void	leaks()
+{
+	system("leaks push_swap");
+}
+
 int	print_err(void)
 {
 	write(2, "Error\n", ft_strlen("Error\n"));
@@ -33,5 +38,6 @@ int	purge_lst(t_decue_addr *p)
 		temp1 = temp2;
 	}
 	free (p);
+	atexit(leaks);
 	return (0);
 }

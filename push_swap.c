@@ -38,6 +38,5 @@ int	main(int argc, char **argv)
 	if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
 	//sort(p);
-	atexit(leaks);
 	return (purge_lst(p));
 }
