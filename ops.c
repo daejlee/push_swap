@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include "./libft_garage/ft_printf/ft_printf.h"
 
-void	swap(t_decue **top_adr)
+void	swap(t_decue *top)
 {
-	t_decue	*top;
 	int		temp;
 
-	top = *top_adr;
 	if (top && top->next)
 	{
 		temp = top->val;
@@ -16,129 +14,103 @@ void	swap(t_decue **top_adr)
 	}
 }
 
-void	sa(t_decue **a_top_adr)
+void	sa(t_decue_addr *p)
 {
-	swap(a_top_adr);
+	swap(p->a_top);
 	ft_printf("sa\n");
 }
 
-void	sb(t_decue **b_top_adr)
+void	sb(t_decue_addr *p)
 {
-	swap(b_top_adr);
+	swap(p->b_top);
 	ft_printf("sb\n");
 }
 
-void	ss(t_decue **a_top_adr, t_decue **b_top_adr)
+void	ss(t_decue_addr *p)
 {
-	sa(a_top_adr);
-	sb(b_top_adr);
+	sa(p);
+	sb(p);
 	ft_printf("ss\n");
 }
 
-void	pa(t_decue **a_top_adr, t_decue **b_top_adr)
+void	pa(t_decue_addr *p)
 {
-	t_decue	*a_top;
-	t_decue	*b_top;
-
-	a_top = *a_top_adr;
-	b_top = *b_top_adr;
-	if (!b_top)
+	if (!p->b_top)
 		return ;
-	*a_top_adr = b_top;
-	*b_top_adr = b_top->next;
+	p->a_top = p->b_top;
+	p->b_top = p->b_top->next;
 
-	b_top->next->previous = NULL;
-	b_top->next = a_top;
-	a_top->previous = b_top;
+	p->b_top->next->previous = NULL;
+	p->b_top->next = p->a_top;
+	p->a_top->previous = p->b_top;
 	ft_printf("pa\n");
 }
 
-void	pb(t_decue **a_top_adr, t_decue **b_top_adr)
+void	pb(t_decue_addr *p)
 {
-	t_decue	*a_top;
-	t_decue	*b_top;
-
-	a_top = *a_top_adr;
-	b_top = *b_top_adr;
-	if (!a_top)
+	if (!p->a_top)
 		return ;
-	*b_top_adr = a_top;
-	*a_top_adr = b_top->next;
+	p->b_top = p->a_top;
+	p->a_top = p->b_top->next;
 
-	a_top->next->previous = NULL;
-	a_top->next = b_top;
-	b_top->previous = a_top;
+	p->a_top->next->previous = NULL;
+	p->a_top->next = p->b_top;
+	p->b_top->previous = p->a_top;
 	ft_printf("pb\n");
 }
 
-void	rotate(t_decue **top_adr, t_decue **bottom_adr)
+void	ra(t_decue_addr *p)
 {
-	t_decue	*top;
-	t_decue	*bottom;
+	p->a_top = p->a_top->next;
+	p->b_top = p->a_top;
 
-	top = *top_adr;
-	bottom = *bottom_adr;
-	*top_adr = top->next;
-	*bottom_adr = top;
-
-	bottom->next = top;
-	top->previous = bottom;
-	top->next = NULL;
-}
-
-void	ra(t_decue **a_top_adr, t_decue **a_bottom_adr)
-{
-	rotate(a_top_adr, a_bottom_adr);
+	p->a_bottom->next = p->a_top;
+	p->a_top->previous = p->a_bottom;
+	p->a_top->next = NULL;
 	ft_printf("ra\n");
 }
 
-void	rb(t_decue **b_top_adr, t_decue **b_bottom_adr)
+void	rb(t_decue_addr *p)
 {
-	rotate(b_top_adr, b_bottom_adr);
+	p->b_top = p->b_top->next;
+	p->a_top = p->b_top;
+
+	p->b_bottom->next = p->b_top;
+	p->b_top->previous = p->b_bottom;
+	p->b_top->next = NULL;
 	ft_printf("rb\n");
 }
 
-void	rr(t_decue_addr **p_adr)
+void	rr(t_decue_addr *p)
 {
-	t_decue_addr	*p;
-
-	p = *p_adr;
-	ra(&p->a_top, &p->a_bottom);
-	rb(&p->b_top, &p->b_bottom);
+	ra(p);
+	rb(p);
 }
 
-void	reverse_rotate(t_decue **top_adr, t_decue **bottom_adr)
+void	rra(t_decue_addr *p)
 {
-	t_decue	*top;
-	t_decue	*bottom;
+	p->a_top = p->a_bottom;
+	p->a_bottom = p->a_bottom->previous;
 
-	top = *top_adr;
-	bottom = *bottom_adr;
-	*top_adr = bottom;
-	*bottom_adr = bottom->previous;
-
-	bottom->next = top;
-	bottom->previous = NULL;
-	top->previous = bottom;
-}
-
-void	rra(t_decue **a_top_adr, t_decue **a_bottom_adr)
-{
-	reverse_rotate(a_top_adr, a_bottom_adr);
+	p->a_bottom->next = p->a_top;
+	p->a_bottom->previous = NULL;
+	p->a_top->previous = p->a_bottom;
 	ft_printf("rra\n");
 }
 
-void	rrb(t_decue **b_top_adr, t_decue **b_bottom_adr)
+void	rrb(t_decue_addr *p)
 {
-	reverse_rotate(b_top_adr, b_bottom_adr);
+	p->b_top = p->b_bottom;
+	p->b_bottom = p->b_bottom->previous;
+
+	p->b_bottom->next = p->b_top;
+	p->b_bottom->previous = NULL;
+	p->b_top->previous = p->b_bottom;
 	ft_printf("rrb\n");
 }
 
-void	rrr(t_decue_addr **p_adr)
+void	rrr(t_decue_addr *p)
 {
-	t_decue_addr	*p;
-
-	p = *p_adr;
-	rra(&p->a_top, &p->a_bottom);
-	rrb(&p->b_top, &p->b_bottom);
+	rra(p);
+	rrb(p);
 }

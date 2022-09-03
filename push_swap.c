@@ -17,11 +17,6 @@ void	print_stack(t_decue_addr *p)
 	ft_printf("-\na\n");
 }
 
-void	leaks()
-{
-	system("leaks push_swap");
-}
-
 int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
@@ -37,6 +32,5 @@ int	main(int argc, char **argv)
 	print_stack(p);
 	if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	//sort(p);
 	return (purge_lst(p));
 }
