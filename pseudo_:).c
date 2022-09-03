@@ -1,6 +1,8 @@
 
 int	sort_and_print_operations(p)
 {
+	//going for radix sort
+	sort_for_1st_digit();
 	
 }
 

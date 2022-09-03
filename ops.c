@@ -61,12 +61,7 @@ void	pb(t_decue_addr *p)
 
 void	ra(t_decue_addr *p)
 {
-	p->a_top = p->a_top->next;
-	p->b_top = p->a_top;
-
-	p->a_bottom->next = p->a_top;
-	p->a_top->previous = p->a_bottom;
-	p->a_top->next = NULL;
+	p->a_top->val = p->a_bottom->val;
 	ft_printf("ra\n");
 }
 

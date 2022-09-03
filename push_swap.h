@@ -13,6 +13,8 @@ typedef struct s_decue_addr
 	t_decue			*b_top;
 	t_decue			*b_bottom;
 	unsigned int	size;
+	int				max;
+	int				min;
 }	t_decue_addr;
 
 void			sa(t_decue_addr *p);
