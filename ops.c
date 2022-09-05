@@ -35,44 +35,75 @@ void	ss(t_decue_addr *p)
 
 void	pa(t_decue_addr *p)
 {
-	if (!p->b_top)
-		return ;
-	p->a_top = p->b_top;
-	p->b_top = p->b_top->next;
-
-	p->b_top->next->previous = NULL;
-	p->b_top->next = p->a_top;
-	p->a_top->previous = p->b_top;
+	if (p->b_top->next)
+		p->b_top->next->previous = NULL;
+	if (p->a_top)
+	{
+		p->a_top->previous = p->b_top;
+		p->b_top->next = p->a_top;
+		p->a_top = p->b_top;
+		p->b_top = p->b_top->next;
+	}
+	else
+	{
+		p->a_top = p->b_top;
+		p->a_top->next = NULL;
+		p->b_top = p->b_top->next;
+	}
 	ft_printf("pa\n");
 }
 
 void	pb(t_decue_addr *p)
 {
-	if (!p->a_top)
-		return ;
-	p->b_top = p->a_top;
-	p->a_top = p->b_top->next;
+	t_decue	*temp;
 
-	p->a_top->next->previous = NULL;
-	p->a_top->next = p->b_top;
-	p->b_top->previous = p->a_top;
+	if (p->a_top->next)
+		p->a_top->next->previous = NULL;
+	if (p->b_top)
+	{
+		p->b_top->previous = p->a_top;
+		temp = p->a_top->next;
+		p->a_top->next = p->b_top;
+		p->b_top = p->a_top;
+		p->a_top = temp;
+	}
+	else
+	{
+		p->b_top = p->a_top;
+		temp = p->a_top->next;
+		p->b_top->next = NULL;
+		p->a_top = temp;
+	}
 	ft_printf("pb\n");
 }
 
 void	ra(t_decue_addr *p)
 {
-	p->a_top->val = p->a_bottom->val;
+	t_decue	*temp;
+
+	p->a_top->previous = p->a_bottom;
+	p->a_bottom->next = p->a_top;
+	if (p->a_bottom->previous)
+		p->a_bottom->previous->next = NULL;
+	temp = p->a_bottom->previous;
+	p->a_bottom->previous = NULL;
+	p->a_top = p->a_bottom;
+	p->a_bottom = temp;
 	ft_printf("ra\n");
 }
 
 void	rb(t_decue_addr *p)
 {
-	p->b_top = p->b_top->next;
-	p->a_top = p->b_top;
+	t_decue	*temp;
 
-	p->b_bottom->next = p->b_top;
 	p->b_top->previous = p->b_bottom;
-	p->b_top->next = NULL;
+	p->b_bottom->next = p->b_top;
+	if (p->b_bottom->previous)
+		p->b_bottom->previous->next = NULL;
+	temp = p->b_bottom->previous;
+	p->b_bottom->previous = NULL;
+	p->b_top = p->b_bottom;
+	p->b_bottom = temp;
 	ft_printf("rb\n");
 }
 
