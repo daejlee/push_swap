@@ -37,56 +37,41 @@ unsigned int	get_dig(int val, unsigned int div)
 	}
 }
 
-void	sort_loop(t_decue_addr *p, unsigned int	div)
+unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_int)
 {
 	unsigned int	count;
-	t_decue			*target;
-	unsigned int	pushing_int;
-	//t_decue			*using_stack;
 	unsigned int	target_dig;
 
 	count = 0;
-	pushing_int = 0;
-	while (p->a_top)
+	while (target)
 	{
-		while (pushing_int < 10)
-		{
-			target = p->a_top;
-			while (target)
-			{
-				target_dig = get_dig(target->val, div);
-				if (target_dig == pushing_int)
-					count++;
-				target = target->next;
-			}
-			while (count)
-			{
-				target_dig = get_dig(p->a_top->val, div);
-				if (target_dig == pushing_int)
-				{
-					pb(p);
-					count--;
-				}
-				else
-					ra(p);
-			}
-			pushing_int++;
-		}
-		ft_printf("-------------------------------\n");
-		ft_printf("%i div radix sort result is...\n", div);
-		ft_printf("-------------------------------\n");
-		print_stack(p);
+		target_dig = get_dig(target->val, div);
+		if (target_dig == pushing_int)
+			count++;
+		target = target->next;
 	}
+	return (count);
 }
 
 void	radix_sort(t_decue_addr *p)
 {
 	unsigned int	div;
+	t_decue			*target;
 
 	div = 1;
-	while (1)
+	target = p->a_top;
+	while (p->max / div)
 	{
-		sort_loop(p, div);
+		if (target == p->a_top)
+		{
+			sort_loop_to_b(p, div);
+			target = p->b_top;
+		}
+		else
+		{
+			sort_loop_to_a(p, div);
+			target = p->a_top;
+		}
 		div *= 10;
 	}
 }

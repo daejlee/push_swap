@@ -83,6 +83,7 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 		return (0);
 	temp1->previous = NULL;
 	temp1->val = ft_atoi(argv[1]);
+	p->max = temp1->val;
 	p->a_top = temp1;
 	i = 2;
 	while (argv[i])
@@ -93,6 +94,8 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 		temp1->next = temp2;
 		temp2->previous = temp1;
 		temp2->val = ft_atoi(argv[i]);
+		if (p->max < temp2->val)
+			p->max = temp2->val;
 		temp1 = temp2;
 		i++;
 	}
