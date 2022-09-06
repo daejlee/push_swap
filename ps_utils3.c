@@ -73,7 +73,7 @@ void	prep_idx(t_decue_addr *p, t_decue *bot, unsigned int div)
 	i = 0;
 	ft_printf("-------------------------------\n");
 	ft_printf("%i div's idx_chamber is following..\n", div);
-	while (i < p->size - 1)
+	while (i < p->size)
 		ft_printf("%i ", p->idx_chamber[i++]);
 	ft_printf("\n-------------------------------\n");
 }
@@ -84,7 +84,7 @@ void	sort_loop_to_b(t_decue_addr *p, unsigned int div)
 
 	prep_idx(p, p->a_bottom, div);
 	i = 0;
-	while (i < p->size - 1)
+	while (i < p->size)
 	{
 		if (p->a_top->val == p->idx_chamber[i])
 		{
@@ -109,7 +109,7 @@ void	sort_loop_to_a(t_decue_addr *p, unsigned int div)
 
 	prep_idx(p, p->b_bottom, div);
 	i = 0;
-	while (i < p->size - 1)
+	while (i < p->size)
 	{
 		if (p->b_top->val == p->idx_chamber[i])
 		{

@@ -5,7 +5,6 @@ int	sort_and_print_operations(p)
 	chamber = (int *)malloc(sizeof(int) * arrsize);
 	use chamber in every divs. -> get idx for every elements.;
 	push, swap in accordance with idx comparision between chamber;
-	
 }
 
 int	main(int argc, char **argv)
