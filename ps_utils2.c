@@ -37,7 +37,8 @@ int	purge_lst(t_decue_addr *p)
 		free(temp1);
 		temp1 = temp2;
 	}
-	free (p->idx_chamber);
+	if (p->idx_chamber)
+		free (p->idx_chamber);
 	free (p);
 	atexit(leaks);
 	return (0);
