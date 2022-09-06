@@ -2,7 +2,9 @@
 int	sort_and_print_operations(p)
 {
 	//going for radix sort
-	sort_for_1st_digit();
+	chamber = (int *)malloc(sizeof(int) * arrsize);
+	use chamber in every divs. -> get idx for every elements.;
+	push, swap in accordance with idx comparision between chamber;
 	
 }
 

@@ -68,6 +68,9 @@ t_decue_addr	*init_p(void)
 	ret->a_bottom = NULL;
 	ret->b_top = NULL;
 	ret->b_bottom = NULL;
+	ret->idx_chamber = NULL;
+	ret->max = 0;
+	ret->min = 0;
 	ret->size = 0;
 	return (ret);
 }

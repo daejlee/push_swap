@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+//./push_swap 1 2 7 11 22 927 731 33
+
 void	print_stack(t_decue_addr *p)
 {
 	t_decue	*head;
@@ -48,7 +50,7 @@ unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_i
 		target_dig = get_dig(target->val, div);
 		if (target_dig == pushing_int)
 			count++;
-		target = target->next;
+		target = target->previous;
 	}
 	return (count);
 }
@@ -60,6 +62,12 @@ void	radix_sort(t_decue_addr *p)
 
 	div = 1;
 	target = p->a_top;
+	p->idx_chamber = (int *)malloc(sizeof(int) * p->size);
+	if (!p->idx_chamber)
+	{
+		print_err();
+		return ;
+	}
 	while (p->max / div)
 	{
 		if (target == p->a_top)

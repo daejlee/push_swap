@@ -4,6 +4,7 @@ typedef struct s_decue
 	struct s_decue	*next;
 	struct s_decue	*previous;
 	int				val;
+	unsigned int	idx;
 }	t_decue;
 
 typedef struct s_decue_addr
@@ -12,6 +13,7 @@ typedef struct s_decue_addr
 	t_decue			*a_bottom;
 	t_decue			*b_top;
 	t_decue			*b_bottom;
+	int				*idx_chamber;
 	unsigned int	size;
 	int				max;
 	int				min;

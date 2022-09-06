@@ -1,6 +1,42 @@
 #include "push_swap.h"
 #include "./libft_garage/ft_printf/ft_printf.h"
 
+/*
+void	push_and_rev_a(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div)
+{
+	unsigned int	target_dig;
+
+	while (count)
+	{
+		//개선의 여지가 있음 (greedy??)
+		rrb(p);
+		target_dig = get_dig(p->b_top->val, div);
+		if (target_dig == pushing_int)
+		{
+			pa(p);
+			count--;
+		}
+	}
+}
+*/
+/*
+void	push_and_rev_b(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div)
+{
+	unsigned int	target_dig;
+
+	while (count)
+	{
+		rra(p);
+		target_dig = get_dig(p->a_top->val, div);
+		if (target_dig == pushing_int)
+		{
+			pb(p);
+			count--;
+		}
+	}
+}
+*/
+
 t_decue	*get_bottom_adr(t_decue *top)
 {
 	while (top->next)
@@ -8,82 +44,86 @@ t_decue	*get_bottom_adr(t_decue *top)
 	return (top);
 }
 
-void	push_and_rev_b(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div)
+void	prep_idx(t_decue_addr *p, t_decue *bot, unsigned int div)
 {
+	unsigned int	i;
+	unsigned int	pushing_int;
 	unsigned int	target_dig;
+	unsigned int	count;
+	t_decue			*temp;
 
-	while (count)
+	i = 0;
+	pushing_int = 10;
+	while (pushing_int--)
 	{
-		target_dig = get_dig(p->a_top->val, div);
-		if (target_dig == pushing_int)
+		temp = bot;
+		count = get_count(bot, div, pushing_int);
+		while (count)
 		{
-			pb(p);
-			count--;
+			target_dig = get_dig(temp->val, div);
+			if (target_dig == pushing_int)
+			{
+				p->idx_chamber[i++] = temp->val;
+				count--;
+			}
+			if (temp->previous)
+				temp = temp->previous;
 		}
-		else
-			ra(p);
 	}
+	i = 0;
+	ft_printf("-------------------------------\n");
+	ft_printf("%i div's idx_chamber is following..\n", div);
+	while (i < p->size - 1)
+		ft_printf("%i ", p->idx_chamber[i++]);
+	ft_printf("\n-------------------------------\n");
 }
 
 void	sort_loop_to_b(t_decue_addr *p, unsigned int div)
 {
-	unsigned int	count;
-	unsigned int	pushing_int;
+	unsigned int	i;
 
-	pushing_int = 0;
-	while (p->a_top)
+	prep_idx(p, p->a_bottom, div);
+	i = 0;
+	while (i < p->size - 1)
 	{
-		while (pushing_int < 10)
+		if (p->a_top->val == p->idx_chamber[i])
 		{
-			count = get_count(p->a_top, div, pushing_int);
-			push_and_rev_b(p, count, pushing_int, div);
-			pushing_int++;
-		}
-		p->a_bottom = NULL;
-		p->b_bottom = get_bottom_adr(p->b_top);
-		ft_printf("-------------------------------\n");
-		ft_printf("%i div radix sort's result is...\n", div);
-		ft_printf("-------------------------------\n");
-		print_stack(p);
-	}
-}
-
-void	push_and_rev_a(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div)
-{
-	unsigned int	target_dig;
-
-	while (count)
-	{
-		target_dig = get_dig(p->b_top->val, div);
-		if (target_dig == pushing_int)
-		{
-			pa(p);
-			count--;
+			i++;
+			pb(p);
 		}
 		else
-			rb(p);
+			ra(p); //or rra(p);
 	}
+	p->a_top = NULL;
+	p->a_bottom = NULL;
+	p->b_bottom = get_bottom_adr(p->b_top);
+	ft_printf("-------------------------------\n");
+	ft_printf("%i div radix sort's result is...\n", div);
+	ft_printf("-------------------------------\n");
+	print_stack(p);
 }
 
 void	sort_loop_to_a(t_decue_addr *p, unsigned int div)
 {
-	unsigned int	count;
-	unsigned int	pushing_int;
+	unsigned int	i;
 
-	pushing_int = 0;
-	while (p->b_top)
+	prep_idx(p, p->b_bottom, div);
+	i = 0;
+	while (i < p->size - 1)
 	{
-		while (pushing_int < 10)
+		if (p->b_top->val == p->idx_chamber[i])
 		{
-			count = get_count(p->b_top, div, pushing_int);
-			push_and_rev_a(p, count, pushing_int, div);
-			pushing_int++;
+			i++;
+			pa(p);
 		}
-		p->b_bottom = NULL;
-		p->a_bottom = get_bottom_adr(p->a_top);
-		ft_printf("-------------------------------\n");
-		ft_printf("%i div radix sort's result is...\n", div);
-		ft_printf("-------------------------------\n");
-		print_stack(p);
+		else
+			rb(p); //or rra(p);
 	}
+	p->b_top = NULL;
+	p->b_bottom = NULL;
+	p->a_bottom = get_bottom_adr(p->a_top);
+	ft_printf("-------------------------------\n");
+	ft_printf("%i div radix sort's result is...\n", div);
+	ft_printf("-------------------------------\n");
+	print_stack(p);
 }
