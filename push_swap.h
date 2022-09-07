@@ -45,3 +45,4 @@ void			push_and_rev_b(t_decue_addr *p, unsigned int count, unsigned int pushing_
 void			sort_loop_to_b(t_decue_addr *p, unsigned int div);
 void			push_and_rev_a(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
+void			manual_sort(int argc, t_decue_addr *p);

@@ -59,7 +59,8 @@ unsigned int	get_dig(unsigned int val, unsigned int div)
 	}
 }
 
-unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_int)
+unsigned int	get_count(t_decue *target, unsigned int div,
+		unsigned int pushing_int)
 {
 	unsigned int	count;
 	unsigned int	target_dig;
@@ -75,7 +76,7 @@ unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_i
 	return (count);
 }
 
-void	mv_b_to_a(t_decue_addr *p)
+static void	mv_b_to_a(t_decue_addr *p)
 {
 	while (p->a_top)
 	{
@@ -93,10 +94,7 @@ void	radix_sort(t_decue_addr *p)
 	target = p->a_top;
 	p->idx_chamber = (int *)malloc(sizeof(int) * p->size);
 	if (!p->idx_chamber)
-	{
-		print_err();
 		return ;
-	}
 	while (p->max / div)
 	{
 		if (target == p->a_top)
@@ -127,10 +125,12 @@ int	main(int argc, char **argv)
 	p->size = push_args_to_a(argv, p);
 	if (!p->size)
 		return (1);
-	//print_stack(p);
-	if (check_already_sorted(p->a_top))
+	else if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	radix_sort(p);
+	if (argc < 4)
+		manual_sort(argc, p);
+	else
+		radix_sort(p);
 	//print_stack(p);
 	return (purge_lst(p));
 }

@@ -2,10 +2,8 @@
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 CC = cc
-SRC = push_swap.c ps_ops1.c ps_ops2.c ps_ops3.c ps_utils1.c ps_utils2.c ps_utils3.c
+SRC = push_swap.c ps_ops1.c ps_ops2.c ps_ops3.c ps_utils1.c ps_utils2.c ps_utils3.c ps_low_args.c
 OBJ = $(SRC:.c=.o)
-#BONUS_SRC = pipex_utils_1_bonus.c pipex_utils_2_bonus.c pipex_bonus.c
-#BONUS_OBJ = pipex_utils_1_bonus.o pipex_utils_2_bonus.o pipex_bonus.o
 LIBFT = ./libft_garage/libft.a
 LIBFT_DIR = ./libft_garage
 
@@ -40,6 +38,3 @@ fclean :
 re :
 	$(MAKE) fclean
 	$(MAKE) all
-
-#bonus : $(NAME) $(BONUS_SRC)
-#	make WITH_BONUS=1 $(NAME)

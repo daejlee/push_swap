@@ -53,26 +53,23 @@ int	check_already_sorted(t_decue *head)
 		else
 			head = head->next;
 	}
-	ft_printf ("stack already sorted. terminating...\n");
+	ft_printf ("\n");
 	return (1);
 }
 
-t_decue_addr	*init_p(void)
+static t_decue	*get_a_top(t_decue_addr *p, char *arg)
 {
-	t_decue_addr	*ret;
+	t_decue	*top;
 
-	ret = (t_decue_addr *)malloc(sizeof(t_decue_addr));
-	if (!ret)
+	top = (t_decue *)malloc(sizeof(t_decue));
+	if (!top)
 		return (NULL);
-	ret->a_top = NULL;
-	ret->a_bottom = NULL;
-	ret->b_top = NULL;
-	ret->b_bottom = NULL;
-	ret->idx_chamber = NULL;
-	ret->max = 0;
-	ret->min = 0;
-	ret->size = 0;
-	return (ret);
+	top->previous = NULL;
+	top->val = ft_atoi(arg);
+	top->u_val = top->val + __INT_MAX__;
+	p->max = top->u_val;
+	p->a_top = top;
+	return (top);
 }
 
 unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
@@ -81,14 +78,9 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 	t_decue			*temp1;
 	t_decue			*temp2;
 
-	temp1 = (t_decue *)malloc(sizeof(t_decue));
+	temp1 = get_a_top(p, argv[1]);
 	if (!temp1)
 		return (0);
-	temp1->previous = NULL;
-	temp1->val = ft_atoi(argv[1]);
-	temp1->u_val = temp1->val + __INT_MAX__;
-	p->max = temp1->u_val;
-	p->a_top = temp1;
 	i = 2;
 	while (argv[i])
 	{
@@ -106,6 +98,5 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 	}
 	temp1->next = NULL;
 	p->a_bottom = temp1;
-	i--;
-	return (i);
+	return (--i);
 }
