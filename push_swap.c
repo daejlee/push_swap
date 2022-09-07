@@ -75,6 +75,15 @@ unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_i
 	return (count);
 }
 
+void	mv_b_to_a(t_decue_addr *p)
+{
+	while (p->a_top)
+	{
+		pa(p);
+		ra(p);
+	}
+}
+
 void	radix_sort(t_decue_addr *p)
 {
 	unsigned int	div;
@@ -102,6 +111,8 @@ void	radix_sort(t_decue_addr *p)
 		}
 		div *= 10;
 	}
+	if (p->b_top)
+		mv_b_to_a(p);
 }
 
 int	main(int argc, char **argv)
@@ -116,9 +127,10 @@ int	main(int argc, char **argv)
 	p->size = push_args_to_a(argv, p);
 	if (!p->size)
 		return (1);
-	print_stack(p);
+	//print_stack(p);
 	if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
 	radix_sort(p);
+	//print_stack(p);
 	return (purge_lst(p));
 }
