@@ -60,7 +60,7 @@ void	prep_idx(t_decue_addr *p, t_decue *bot, unsigned int div)
 		count = get_count(bot, div, pushing_int);
 		while (count)
 		{
-			target_dig = get_dig(temp->val, div);
+			target_dig = get_dig(temp->u_val, div);
 			if (target_dig == pushing_int)
 			{
 				p->idx_chamber[i++] = temp->val;

@@ -10,6 +10,9 @@ void	print_stack(t_decue_addr *p)
 {
 	t_decue	*head;
 
+	ft_printf("-------------------------------\n");
+	ft_printf("signed val is following.....\n");
+	ft_printf("-------------------------------\n");
 	head = p->a_top;
 	while (head)
 	{
@@ -24,9 +27,26 @@ void	print_stack(t_decue_addr *p)
 		head = head->next;
 	}
 	ft_printf("-\nb\n");
+	ft_printf("-------------------------------\n");
+	ft_printf("unsigned val is following.....\n");
+	ft_printf("-------------------------------\n");
+	head = p->a_top;
+	while (head)
+	{
+		ft_printf("%u\n", head->u_val);
+		head = head->next;
+	}
+	ft_printf("-\na\n");
+	head = p->b_top;
+	while (head)
+	{
+		ft_printf("%u\n", head->u_val);
+		head = head->next;
+	}
+	ft_printf("-\nb\n");
 }
 
-unsigned int	get_dig(int val, unsigned int div)
+unsigned int	get_dig(unsigned int val, unsigned int div)
 {
 	if (div == 1)
 		return (val % 10);
@@ -47,7 +67,7 @@ unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_i
 	count = 0;
 	while (target)
 	{
-		target_dig = get_dig(target->val, div);
+		target_dig = get_dig(target->u_val, div);
 		if (target_dig == pushing_int)
 			count++;
 		target = target->previous;

@@ -4,6 +4,7 @@ typedef struct s_decue
 	struct s_decue	*next;
 	struct s_decue	*previous;
 	int				val;
+	unsigned int	u_val;
 	unsigned int	idx;
 }	t_decue;
 
@@ -15,7 +16,7 @@ typedef struct s_decue_addr
 	t_decue			*b_bottom;
 	int				*idx_chamber;
 	unsigned int	size;
-	int				max;
+	unsigned int	max;
 	int				min;
 }	t_decue_addr;
 
@@ -31,7 +32,7 @@ void			rra(t_decue_addr *p);
 void			rrb(t_decue_addr *p);
 void			rrr(t_decue_addr *p);
 void			print_stack(t_decue_addr *p);
-unsigned int	get_dig(int val, unsigned int div);
+unsigned int	get_dig(unsigned int val, unsigned int div);
 unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_int);
 int				is_int(char **argv);
 int				is_there_dup(char **argv);
