@@ -78,10 +78,13 @@ unsigned int	get_count(t_decue *target, unsigned int div,
 
 static void	mv_b_to_a(t_decue_addr *p)
 {
-	while (p->a_top)
+	while (p->b_top)
 	{
 		pa(p);
-		ra(p);
+		if (p->a_top->next)
+			ra(p);
+		else
+			p->a_bottom = p->a_top;
 	}
 }
 
@@ -95,7 +98,7 @@ void	radix_sort(t_decue_addr *p)
 	p->idx_chamber = (int *)malloc(sizeof(int) * p->size);
 	if (!p->idx_chamber)
 		return ;
-	while (p->max / div)
+	while (p->u_max / div)
 	{
 		if (target == p->a_top)
 		{
@@ -112,6 +115,7 @@ void	radix_sort(t_decue_addr *p)
 	if (p->b_top)
 		mv_b_to_a(p);
 }
+
 
 int	main(int argc, char **argv)
 {

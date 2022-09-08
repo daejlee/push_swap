@@ -16,7 +16,7 @@ typedef struct s_decue_addr
 	t_decue			*b_bottom;
 	int				*idx_chamber;
 	unsigned int	size;
-	unsigned int	max;
+	int				u_max;
 	int				min;
 }	t_decue_addr;
 

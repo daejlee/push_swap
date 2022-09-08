@@ -66,10 +66,42 @@ static t_decue	*get_a_top(t_decue_addr *p, char *arg)
 		return (NULL);
 	top->previous = NULL;
 	top->val = ft_atoi(arg);
-	top->u_val = top->val + __INT_MAX__;
-	p->max = top->u_val;
 	p->a_top = top;
 	return (top);
+}
+
+void	get_min_max(t_decue_addr *p)
+{
+	t_decue	*target;
+
+	target = p->a_top;
+	p->u_max = p->a_top->val;
+	p->min = p->a_top->val;
+	while (target->next)
+	{
+		if (target->next->val > p->u_max)
+			p->u_max = target->next->val;
+		else if (target->next->val < p->min)
+			p->min = target->next->val;
+		target = target->next;
+	}
+	if (p->min < 0)
+		p->u_max = p->u_max - p->min;
+}
+
+void	set_u_val(t_decue_addr *p)
+{
+	t_decue	*target;
+
+	target = p->a_top;
+	while (target)
+	{
+		if (p->min < 0)
+			target->u_val = target->val - p->min;
+		else
+			target->u_val = target->val;
+		target = target->next;
+	}
 }
 
 unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
@@ -90,13 +122,12 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 		temp1->next = temp2;
 		temp2->previous = temp1;
 		temp2->val = ft_atoi(argv[i]);
-		temp2->u_val = temp2->val + __INT_MAX__;
-		if (p->max < temp2->u_val)
-			p->max = temp2->u_val;
 		temp1 = temp2;
 		i++;
 	}
 	temp1->next = NULL;
 	p->a_bottom = temp1;
+	get_min_max(p);
+	set_u_val(p);
 	return (--i);
 }
