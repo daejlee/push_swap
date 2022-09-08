@@ -127,10 +127,10 @@ int	main(int argc, char **argv)
 		return (1);
 	else if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	if (argc < 4)
+	if (argc < 5)
 		manual_sort(argc, p);
 	else
 		radix_sort(p);
-	//print_stack(p);
+	print_stack(p);
 	return (purge_lst(p));
 }

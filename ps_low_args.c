@@ -20,8 +20,8 @@ static void	three_args(t_decue_addr *p)
 
 void	manual_sort(int argc, t_decue_addr *p)
 {
-	if (argc == 2)
+	if (argc == 3)
 		two_args(p);
-	else
+	else if (argc == 4)
 		three_args(p);
 }
