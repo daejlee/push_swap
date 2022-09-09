@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daejlee <daejlee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/09 15:07:12 by daejlee           #+#    #+#             */
+/*   Updated: 2022/09/09 15:07:13 by daejlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 #include "./libft_garage/libft/libft.h"
 #include "./libft_garage/ft_printf/ft_printf.h"
@@ -115,7 +127,6 @@ void	radix_sort(t_decue_addr *p)
 	if (p->b_top)
 		mv_b_to_a(p);
 }
-
 
 int	main(int argc, char **argv)
 {

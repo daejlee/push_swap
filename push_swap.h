@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daejlee <daejlee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/09 15:07:21 by daejlee           #+#    #+#             */
+/*   Updated: 2022/09/09 15:07:21 by daejlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
 typedef struct s_decue
 {
@@ -33,7 +47,8 @@ void			rrb(t_decue_addr *p);
 void			rrr(t_decue_addr *p);
 void			print_stack(t_decue_addr *p);
 unsigned int	get_dig(unsigned int val, unsigned int div);
-unsigned int	get_count(t_decue *target, unsigned int div, unsigned int pushing_int);
+unsigned int	get_count(t_decue *target, unsigned int div,
+					unsigned int pushing_int);
 int				is_int(char **argv);
 int				is_there_dup(char **argv);
 int				check_already_sorted(t_decue *head);
@@ -41,8 +56,12 @@ t_decue_addr	*init_p(void);
 unsigned int	push_args_to_a(char **argv, t_decue_addr *p);
 int				print_err(void);
 int				purge_lst(t_decue_addr *p);
-void			push_and_rev_b(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div);
+void			push_and_rev_b(t_decue_addr *p, unsigned int count,
+					unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_b(t_decue_addr *p, unsigned int div);
-void			push_and_rev_a(t_decue_addr *p, unsigned int count, unsigned int pushing_int, unsigned int div);
+void			push_and_rev_a(t_decue_addr *p, unsigned int count,
+					unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
 void			manual_sort(int argc, t_decue_addr *p);
+
+#endif
