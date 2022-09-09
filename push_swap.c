@@ -192,6 +192,6 @@ int	main(int argc, char **argv)
 	if (!idx_chamber)
 		return (purge_lst(p));
 	matching_stack(p, idx_chamber);
-	//print_stack(p);
+	print_stack(p);
 	return (purge_lst(p));
 }
