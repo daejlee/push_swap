@@ -83,7 +83,7 @@ unsigned int	get_dig(unsigned int val, unsigned int div)
 	}
 }
 
-unsigned int	get_count(int *arr, unsigned int div,
+unsigned int	get_count(unsigned int *arr, unsigned int div,
 		unsigned int pushing_int, unsigned int size)
 {
 	unsigned int	i;
@@ -102,7 +102,7 @@ unsigned int	get_count(int *arr, unsigned int div,
 	return (count);
 }
 
-void	sort_to_chamber(int *from_arr, int *to_arr, unsigned int div, t_decue_addr *p)
+void	sort_to_chamber(unsigned int *from_arr, unsigned int *to_arr, unsigned int div, t_decue_addr *p)
 {
 	unsigned int	i;
 	unsigned int	k;
@@ -130,7 +130,7 @@ void	sort_to_chamber(int *from_arr, int *to_arr, unsigned int div, t_decue_addr 
 	}
 }
 
-void	cp_stack_to_chamber(int *arr, t_decue *top)
+void	cp_stack_to_chamber(unsigned int *arr, t_decue *top)
 {
 	unsigned int	i;
 
@@ -142,16 +142,16 @@ void	cp_stack_to_chamber(int *arr, t_decue *top)
 	}
 }
 
-int	*radix_sort(t_decue_addr *p)
+unsigned int	*radix_sort(t_decue_addr *p)
 {
 	unsigned int	div;
-	int				*temp1;
-	int				*temp2;
-	int				*temp_switch;
+	unsigned int	*temp1;
+	unsigned int	*temp2;
+	unsigned int	*temp_switch;
 
 	div = 1;
-	temp1 = (int *)malloc(sizeof(int) * p->size);
-	temp2 = (int *)malloc(sizeof(int) * p->size);
+	temp1 = (unsigned int *)malloc(sizeof(unsigned int) * p->size);
+	temp2 = (unsigned int *)malloc(sizeof(unsigned int) * p->size);
 	if (!temp1 || !temp2)
 		return (NULL);
 	cp_stack_to_chamber(temp1, p->a_top);
@@ -172,7 +172,7 @@ int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
 	char			**arg_arr;
-	int				*idx_chamber;
+	unsigned int	*idx_chamber;
 
 	if (argc == 1)
 		return (1);
@@ -191,6 +191,7 @@ int	main(int argc, char **argv)
 	idx_chamber = radix_sort(p);
 	if (!idx_chamber)
 		return (purge_lst(p));
-	//matching_stack(p, idx_chamber);
+	matching_stack(p, idx_chamber);
+	//print_stack(p);
 	return (purge_lst(p));
 }

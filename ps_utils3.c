@@ -13,12 +13,7 @@
 #include "push_swap.h"
 #include "./libft_garage/ft_printf/ft_printf.h"
 
-/*t_decue	*get_bottom_adr(t_decue *top)
-{
-	while (top->next)
-		top = top->next;
-	return (top);
-}
+/*
 
 void	prep_idx(t_decue_addr *p, t_decue *bot, unsigned int div)
 {
@@ -48,20 +43,6 @@ void	prep_idx(t_decue_addr *p, t_decue *bot, unsigned int div)
 	}
 }
 
-unsigned int	get_stack_idx(t_decue *top, int chamber_val)
-{
-	unsigned int	idx;
-
-	idx = 0;
-	while (top)
-	{
-		if (top->val == chamber_val)
-			return (idx);
-		idx++;
-		top = top->next;
-	}
-	return (0);
-}
 
 void	sort_loop_to_b(t_decue_addr *p, unsigned int div)
 {
@@ -109,3 +90,60 @@ void	sort_loop_to_a(t_decue_addr *p, unsigned int div)
 	p->a_bottom = get_bottom_adr(p->a_top);
 }
 */
+
+t_decue	*get_bottom_adr(t_decue *top)
+{
+	while (top->next)
+		top = top->next;
+	return (top);
+}
+
+unsigned int	get_stack_idx(t_decue *top, int chamber_val)
+{
+	unsigned int	idx;
+
+	idx = 0;
+	while (top)
+	{
+		if (top->val == chamber_val)
+			return (idx);
+		idx++;
+		top = top->next;
+	}
+	return (0);
+}
+
+static void	swap_b_with_a(t_decue_addr *p)
+{
+	t_decue	*temp1;
+
+	temp1 = p->a_top;
+	p->a_top = p->b_top;
+	p->b_top = temp1;
+	temp1 = p->a_bottom;
+	p->a_bottom = p->b_bottom;
+	p->b_bottom = temp1;
+}
+
+void	matching_stack(t_decue_addr *p, unsigned int *idx_chamber)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < p->size + 1)
+	{
+		if (p->a_top->u_val == idx_chamber[i])
+		{
+			i++;
+			pb(p);
+		}
+		else if (get_stack_idx(p->b_top, idx_chamber[i]) < p->size / 2)
+			ra(p);
+		else
+			rra(p);
+	}
+	swap_b_with_a(p);
+	p->b_top = NULL;
+	p->b_bottom = NULL;
+	p->a_bottom = get_bottom_adr(p->a_top);
+}

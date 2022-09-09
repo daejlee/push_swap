@@ -47,7 +47,7 @@ void			rrb(t_decue_addr *p);
 void			rrr(t_decue_addr *p);
 void			print_stack(t_decue_addr *p);
 unsigned int	get_dig(unsigned int val, unsigned int div);
-unsigned int	get_count(int *arr, unsigned int div,
+unsigned int	get_count(unsigned int *arr, unsigned int div,
 					unsigned int pushing_int, unsigned int size);
 int				is_int(char **argv);
 int				is_there_dup(char **argv);
@@ -63,5 +63,6 @@ void			push_and_rev_a(t_decue_addr *p, unsigned int count,
 					unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
 void			low_arg_sort(int argc, t_decue_addr *p);
+void			matching_stack(t_decue_addr *p, unsigned int *idx_chamber);
 
 #endif
