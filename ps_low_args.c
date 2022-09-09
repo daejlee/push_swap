@@ -20,9 +20,22 @@ static void	two_args(t_decue_addr *p)
 
 static void	three_args(t_decue_addr *p)
 {
+	while (p->a_bottom->val != p->max)
+		ra(p);
+	if (p->a_top->val != p->min)
+		sa(p);
+}
+
+static void	four_args(t_decue_addr *p)
+{
 	while (p->a_top->val != p->min)
 		ra(p);
-	if (p->a_top->next->val > p->a_bottom->val)
+	while (p->a_bottom->val != p->max)
+	{
+		rra(p);
+		sa(p);
+	}
+	if (p->a_top->next->val > p->a_bottom->previous->val)
 	{
 		ra(p);
 		sa(p);
@@ -30,10 +43,12 @@ static void	three_args(t_decue_addr *p)
 	}
 }
 
-void	manual_sort(int argc, t_decue_addr *p)
+void	low_arg_sort(int argc, t_decue_addr *p)
 {
 	if (argc == 3)
 		two_args(p);
 	else if (argc == 4)
 		three_args(p);
+	else if (argc == 5)
+		four_args(p);
 }

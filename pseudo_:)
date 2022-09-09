@@ -9,6 +9,19 @@ int	sort_and_print_operations(p)
 		2. sort, push positive fisrt and sort, push for negative nums.
 		-> gonna compare both methods and will pick the better one.
 	push, swap in accordance with idx comparision between chamber;
+	/*in fact, getting the answer array, is not the thing.
+	the process that matching existing stack with the answer array is the real deal.*/
+	using two int_arrs as bucket, make the answer arr;
+}
+
+int	*get_idx_chamber(p)
+{
+	//making idx_chamber for stacks to match
+	get two temp_chambers;
+	copy initial stack to 1st_chamber;
+	while ()
+		using another chamber as bucket, radix sort;
+	return (chamber);
 }
 
 int	main(int argc, char **argv)
@@ -23,8 +36,7 @@ int	main(int argc, char **argv)
 	push_args_to_a(argv);
 	if (already sorted)
 		return (0);
-	[./push_swap 6, 2, 9, 4 -> (top)6, 2, 9, (bottom)4];
-	sort_and_print_operations(p); -> real deal
-	[6, 2, 9, 4 -> (top)2, 4, 6, (bottom)9];
+	idx_chamber = get_idx_chamber(p); //sorting takes place
+	configure_stack(p, idx_chamber); //moving stacks to the right idx -> coms used here.
 	return (1);
 }

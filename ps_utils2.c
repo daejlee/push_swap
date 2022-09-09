@@ -44,8 +44,6 @@ int	purge_lst(t_decue_addr *p)
 		free(temp1);
 		temp1 = temp2;
 	}
-	if (p->idx_chamber)
-		free (p->idx_chamber);
 	free (p);
 	return (0);
 }
@@ -61,7 +59,6 @@ t_decue_addr	*init_p(void)
 	ret->a_bottom = NULL;
 	ret->b_top = NULL;
 	ret->b_bottom = NULL;
-	ret->idx_chamber = NULL;
 	ret->u_max = 0;
 	ret->min = 0;
 	ret->size = 0;

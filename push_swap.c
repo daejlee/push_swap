@@ -18,6 +18,18 @@
 
 //./push_swap 1 2 7 11 22 927 731 33
 
+/*static void	swap_b_with_a(t_decue_addr *p)
+{
+	t_decue	*temp1;
+
+	temp1 = p->a_top;
+	p->a_top = p->b_top;
+	p->b_top = temp1;
+	temp1 = p->a_bottom;
+	p->a_bottom = p->b_bottom;
+	p->b_bottom = temp1;
+}*/
+
 void	print_stack(t_decue_addr *p)
 {
 	t_decue	*head;
@@ -71,81 +83,114 @@ unsigned int	get_dig(unsigned int val, unsigned int div)
 	}
 }
 
-unsigned int	get_count(t_decue *target, unsigned int div,
-		unsigned int pushing_int)
+unsigned int	get_count(int *arr, unsigned int div,
+		unsigned int pushing_int, unsigned int size)
 {
+	unsigned int	i;
 	unsigned int	count;
 	unsigned int	target_dig;
 
 	count = 0;
-	while (target)
+	i = 0;
+	while (i < size + 1)
 	{
-		target_dig = get_dig(target->u_val, div);
+		target_dig = get_dig(arr[i], div);
 		if (target_dig == pushing_int)
 			count++;
-		target = target->previous;
+		i++;
 	}
 	return (count);
 }
 
-static void	mv_b_to_a(t_decue_addr *p)
+void	sort_to_chamber(int *from_arr, int *to_arr, unsigned int div, t_decue_addr *p)
 {
-	while (p->b_top)
+	unsigned int	i;
+	unsigned int	k;
+	unsigned int	pushing_int;
+	unsigned int	target_dig;
+	unsigned int	count;
+	int				target;
+
+	pushing_int = 10;
+	k = 0;
+	while (pushing_int--)
 	{
-		pa(p);
-		if (p->a_top->next)
-			ra(p);
-		else
-			p->a_bottom = p->a_top;
+		count = get_count(from_arr, div, pushing_int, p->size);
+		i = 0;
+		while (count)
+		{
+			target = from_arr[i++];
+			target_dig = get_dig(target, div);
+			if (target_dig == pushing_int)
+			{
+				to_arr[k++] = target;
+				count--;
+			}
+		}
 	}
 }
 
-void	radix_sort(t_decue_addr *p)
+void	cp_stack_to_chamber(int *arr, t_decue *top)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (top)
+	{
+		arr[i++] = top->u_val;
+		top = top->next;
+	}
+}
+
+int	*radix_sort(t_decue_addr *p)
 {
 	unsigned int	div;
-	t_decue			*target;
+	int				*temp1;
+	int				*temp2;
+	int				*temp_switch;
 
 	div = 1;
-	target = p->a_top;
-	p->idx_chamber = (int *)malloc(sizeof(int) * p->size);
-	if (!p->idx_chamber)
-		return ;
+	temp1 = (int *)malloc(sizeof(int) * p->size);
+	temp2 = (int *)malloc(sizeof(int) * p->size);
+	if (!temp1 || !temp2)
+		return (NULL);
+	cp_stack_to_chamber(temp1, p->a_top);
 	while (p->u_max / div)
 	{
-		if (target == p->a_top)
-		{
-			sort_loop_to_b(p, div);
-			target = p->b_top;
-		}
-		else
-		{
-			sort_loop_to_a(p, div);
-			target = p->a_top;
-		}
+		sort_to_chamber(temp1, temp2, div, p);
 		div *= 10;
+		temp_switch = temp1;
+		temp1 = temp2;
+		temp2 = temp_switch;
 	}
-	if (p->b_top)
-		mv_b_to_a(p);
+	free (temp2);
+	temp2 = NULL;
+	return (temp1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
+	char			**arg_arr;
+	int				*idx_chamber;
 
 	if (argc == 1)
 		return (1);
-	else if (is_int(argv) || is_there_dup(argv))
+	else if (argc == 2)
+		arg_arr = ft_split(argv[1], ' ');
+	else
+		arg_arr = argv + 1;
+	if (is_int(arg_arr) || is_there_dup(arg_arr))
 		return (print_err());
 	p = init_p();
-	p->size = push_args_to_a(argv, p);
+	p->size = push_args_to_a(arg_arr, p);
 	if (!p->size)
 		return (1);
 	else if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	if (argc < 5)
-		manual_sort(argc, p);
-	else
-		radix_sort(p);
-	print_stack(p);
+	idx_chamber = radix_sort(p);
+	if (!idx_chamber)
+		return (purge_lst(p));
+	//matching_stack(p, idx_chamber);
 	return (purge_lst(p));
 }

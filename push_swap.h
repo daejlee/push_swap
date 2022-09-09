@@ -28,8 +28,8 @@ typedef struct s_decue_addr
 	t_decue			*a_bottom;
 	t_decue			*b_top;
 	t_decue			*b_bottom;
-	int				*idx_chamber;
 	unsigned int	size;
+	int				max;
 	int				u_max;
 	int				min;
 }	t_decue_addr;
@@ -47,8 +47,8 @@ void			rrb(t_decue_addr *p);
 void			rrr(t_decue_addr *p);
 void			print_stack(t_decue_addr *p);
 unsigned int	get_dig(unsigned int val, unsigned int div);
-unsigned int	get_count(t_decue *target, unsigned int div,
-					unsigned int pushing_int);
+unsigned int	get_count(int *arr, unsigned int div,
+					unsigned int pushing_int, unsigned int size);
 int				is_int(char **argv);
 int				is_there_dup(char **argv);
 int				check_already_sorted(t_decue *head);
@@ -62,6 +62,6 @@ void			sort_loop_to_b(t_decue_addr *p, unsigned int div);
 void			push_and_rev_a(t_decue_addr *p, unsigned int count,
 					unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
-void			manual_sort(int argc, t_decue_addr *p);
+void			low_arg_sort(int argc, t_decue_addr *p);
 
 #endif

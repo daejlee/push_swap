@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include "./libft_garage/ft_printf/ft_printf.h"
 
-t_decue	*get_bottom_adr(t_decue *top)
+/*t_decue	*get_bottom_adr(t_decue *top)
 {
 	while (top->next)
 		top = top->next;
@@ -33,7 +33,7 @@ void	prep_idx(t_decue_addr *p, t_decue *bot, unsigned int div)
 	while (pushing_int--)
 	{
 		temp = bot;
-		count = get_count(bot, div, pushing_int);
+		count = get_count(bot, div, pushing_int, p->size);
 		while (count)
 		{
 			target_dig = get_dig(temp->u_val, div);
@@ -108,3 +108,4 @@ void	sort_loop_to_a(t_decue_addr *p, unsigned int div)
 	p->b_bottom = NULL;
 	p->a_bottom = get_bottom_adr(p->a_top);
 }
+*/
