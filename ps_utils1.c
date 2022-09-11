@@ -144,5 +144,5 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 	p->a_bottom = temp1;
 	get_min_max(p);
 	set_u_val(p);
-	return (--i);
+	return (i);
 }

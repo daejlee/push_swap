@@ -119,14 +119,14 @@ void	matching_stack(t_decue_addr *p, unsigned int *idx_chamber)
 	unsigned int	i;
 
 	i = p->size;
-	while (i + 1)
+	while (i)
 	{
-		if (p->a_top->u_val == idx_chamber[i])
+		if (p->a_top->u_val == idx_chamber[i - 1])
 		{
 			i--;
 			pb(p);
 		}
-		else if (get_stack_idx(p->b_top, idx_chamber[i]) < p->size / 2)
+		else if (get_stack_idx(p->b_top, idx_chamber[i - 1]) < p->size / 2)
 			ra(p);
 		else
 			rra(p);

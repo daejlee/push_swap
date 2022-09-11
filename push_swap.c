@@ -92,7 +92,7 @@ unsigned int	get_count(unsigned int *arr, unsigned int div,
 
 	count = 0;
 	i = 0;
-	while (i < size + 1)
+	while (i < size)
 	{
 		target_dig = get_dig(arr[i], div);
 		if (target_dig == pushing_int)
@@ -188,10 +188,15 @@ int	main(int argc, char **argv)
 		return (1);
 	else if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	idx_chamber = radix_sort(p);
-	if (!idx_chamber)
-		return (purge_lst(p));
-	matching_stack(p, idx_chamber);
+	if (p->size < 5)
+		low_arg_sort(p->size, p);
+	else
+	{
+		idx_chamber = radix_sort(p);
+		if (!idx_chamber)
+			return (purge_lst(p));
+		matching_stack(p, idx_chamber);
+	}
 	print_stack(p);
 	return (purge_lst(p));
 }

@@ -43,12 +43,14 @@ static void	four_args(t_decue_addr *p)
 	}
 }
 
-void	low_arg_sort(int argc, t_decue_addr *p)
+void	low_arg_sort(int size, t_decue_addr *p)
 {
-	if (argc == 3)
+	if (size == 2)
 		two_args(p);
-	else if (argc == 4)
+	else if (size == 3)
 		three_args(p);
-	else if (argc == 5)
+	else if (size == 4)
 		four_args(p);
+	//else
+	//	five_args(p);
 }
