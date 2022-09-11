@@ -112,18 +112,18 @@ void	sort_to_chamber(unsigned int *from_arr, unsigned int *to_arr, unsigned int 
 	int				target;
 
 	pushing_int = 10;
-	k = 0;
+	k = p->size - 1;
 	while (pushing_int--)
 	{
 		count = get_count(from_arr, div, pushing_int, p->size);
-		i = 0;
+		i = p->size - 1;
 		while (count)
 		{
-			target = from_arr[i++];
+			target = from_arr[i--];
 			target_dig = get_dig(target, div);
 			if (target_dig == pushing_int)
 			{
-				to_arr[k++] = target;
+				to_arr[k--] = target;
 				count--;
 			}
 		}
@@ -142,7 +142,35 @@ void	cp_stack_to_chamber(unsigned int *arr, t_decue *top)
 	}
 }
 
-unsigned int	*radix_sort(t_decue_addr *p)
+int	*trim_idx_chamber(unsigned int *temp1, t_decue_addr *p)
+{
+	unsigned int	i;
+	int				*ret;
+
+	i = 0;
+	ret = (int *)malloc(sizeof(int) * p->size);
+	if (!ret)
+		return (NULL);
+	if (p->min < 0)
+	{
+		while (i < p->size)
+		{
+			ret[i] = temp1[i] + p->min;
+			i++;
+		}
+	}
+	else
+	{
+		while (i < p->size)
+		{
+			ret[i] = temp1[i];
+			i++;
+		}
+	}
+	return (ret);
+}
+
+int	*radix_sort(t_decue_addr *p)
 {
 	unsigned int	div;
 	unsigned int	*temp1;
@@ -165,14 +193,14 @@ unsigned int	*radix_sort(t_decue_addr *p)
 	}
 	free (temp2);
 	temp2 = NULL;
-	return (temp1);
+	return (trim_idx_chamber(temp1, p));
 }
 
 int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
 	char			**arg_arr;
-	unsigned int	*idx_chamber;
+	int				*idx_chamber;
 
 	if (argc == 1)
 		return (1);
@@ -191,10 +219,10 @@ int	main(int argc, char **argv)
 	idx_chamber = radix_sort(p);
 	if (!idx_chamber)
 		return (purge_lst(p));
-	if (p->size < 7)
+	if (p->size < 6)
 		low_arg_sort(p);
-	else
-		matching_stack(p, idx_chamber);
+	//else
+	//	matching_stack_recursive(p, idx_chamber);
 	//print_stack(p);
 	return (purge_lst(p));
 }

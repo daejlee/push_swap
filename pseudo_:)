@@ -24,6 +24,11 @@ int	*get_idx_chamber(p)
 	return (chamber);
 }
 
+void	configure_stack()
+{
+	//first loop -> 
+}
+
 int	main(int argc, char **argv)
 {
 	if (no parameter are specified)
