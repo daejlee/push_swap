@@ -62,7 +62,8 @@ void			sort_loop_to_b(t_decue_addr *p, unsigned int div);
 void			push_and_rev_a(t_decue_addr *p, unsigned int count,
 					unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
-void			low_arg_sort(int argc, t_decue_addr *p);
+void			low_arg_sort(t_decue_addr *p);
 void			matching_stack(t_decue_addr *p, unsigned int *idx_chamber);
+unsigned int	get_stack_idx(t_decue *top, int chamber_val);
 
 #endif

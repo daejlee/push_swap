@@ -188,15 +188,13 @@ int	main(int argc, char **argv)
 		return (1);
 	else if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	if (p->size < 5)
-		low_arg_sort(p->size, p);
+	idx_chamber = radix_sort(p);
+	if (!idx_chamber)
+		return (purge_lst(p));
+	if (p->size < 7)
+		low_arg_sort(p);
 	else
-	{
-		idx_chamber = radix_sort(p);
-		if (!idx_chamber)
-			return (purge_lst(p));
 		matching_stack(p, idx_chamber);
-	}
-	print_stack(p);
+	//print_stack(p);
 	return (purge_lst(p));
 }
