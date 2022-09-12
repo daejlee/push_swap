@@ -28,6 +28,7 @@ typedef struct s_decue_addr
 	t_decue			*a_bottom;
 	t_decue			*b_top;
 	t_decue			*b_bottom;
+	int				*idx_chamber;
 	unsigned int	size;
 	int				max;
 	int				u_max;
@@ -65,7 +66,7 @@ void			push_and_rev_a(t_decue_addr *p, unsigned int count,
 					unsigned int pushing_int, unsigned int div);
 void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
 void			low_arg_sort(t_decue_addr *p);
-void			matching_stack_recursive(t_decue_addr *p, t_decue *head);
+void			a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range);
 unsigned int	get_stack_idx(t_decue *top, int chamber_val);
 
 #endif

@@ -200,7 +200,6 @@ int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
 	char			**arg_arr;
-	int				*idx_chamber;
 
 	if (argc == 1)
 		return (1);
@@ -216,13 +215,13 @@ int	main(int argc, char **argv)
 		return (1);
 	else if (check_already_sorted(p->a_top))
 		return (purge_lst(p));
-	idx_chamber = radix_sort(p);
-	if (!idx_chamber)
+	p->idx_chamber = radix_sort(p);
+	if (!p->idx_chamber)
 		return (purge_lst(p));
 	if (p->size < 6)
 		low_arg_sort(p);
-	//else
-	//	matching_stack_recursive(p, idx_chamber);
-	//print_stack(p);
+	else
+		a_to_b_recur(p, p->idx_chamber[p->size / 2], p->size);
+	print_stack(p);
 	return (purge_lst(p));
 }

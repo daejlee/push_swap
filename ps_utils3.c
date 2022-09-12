@@ -201,21 +201,93 @@ void	divide_three(t_decue_addr *p, int pivot_1, int pivot_2)
 		pb(p);
 }
 
+/*
 void	get_pivot(int *pivot_1_adr, int *pivot_2_adr, t_decue *head)
 {
-	//something;
+	if (get_stack_size(head) == p->size)
+	{
+		
+	}
 }
+*/
 
-void	matching_stack_recursive(t_decue_addr *p, t_decue *head)
+int	get_next_pivot(t_decue_addr *p, int pivot)
 {
 	unsigned int	i;
-	int				pivot_1;
-	int				pivot_2;
 
-	get_pivot(&pivot_1, &pivot_2, head);
-	divide_three(p, pivot_1, pivot_2);
-	if (get_stack_size(head) > 3)
-			matching_stack_recursive(p, p->a_top);
-	else
-		low_arg_sort(head);
+	i = 0;
+	while (p->idx_chamber[i] != pivot)
+		i++;
+	i /= 2;
+	return (p->idx_chamber[i]);
 }
+
+void	rewind(t_decue_addr *p, unsigned int ra_count, unsigned int rb_count)
+{
+	while (ra_count--)
+		rra(p);
+	while (rb_count--)
+		rrb(p);
+}
+
+void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
+{
+	unsigned int	pa_count;
+	unsigned int	rb_count;
+	int				next_pivot;
+
+	pa_count = 0;
+	rb_count = 0;
+	if (range == 1)
+	{
+		pa(p);
+		return ;
+	}
+	while (range--)
+	{
+		if (p->b_top->val >= pivot)
+		{
+			pa(p);
+			pa_count++;
+		}
+		else
+		{
+			rb(p);
+			rb_count++;
+		}
+	}
+	rewind(p, 0, rb_count);
+	next_pivot = get_next_pivot(p, pivot);
+	a_to_b_recur(p, next_pivot, pa_count);
+	b_to_a_recur(p, next_pivot, rb_count);
+	
+}
+
+void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
+{
+	unsigned int	pb_count;
+	unsigned int	ra_count;
+	int				next_pivot;
+
+	pb_count = 0;
+	ra_count = 0;
+	if (range == 1)
+		return ;
+	while (range--)
+	{
+		if (p->a_top->val >= pivot)
+		{
+			pb(p);
+			pb_count++;
+		}
+		else
+		{
+			ra(p);
+			ra_count++;
+		}
+	}
+	rewind(p, ra_count, 0);
+	next_pivot = get_next_pivot(p, pivot);
+	a_to_b_recur(p, next_pivot, ra_count);
+	b_to_a_recur(p, next_pivot, pb_count); //pb 한만큼 a스택에 올려놓아라.
+} 
