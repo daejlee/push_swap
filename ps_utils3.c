@@ -238,7 +238,7 @@ void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 
 	pa_count = 0;
 	rb_count = 0;
-	if (range == 1)
+	if (range <= 1)
 	{
 		pa(p);
 		return ;
@@ -271,7 +271,7 @@ void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
 
 	pb_count = 0;
 	ra_count = 0;
-	if (range == 1)
+	if (range <= 1)
 		return ;
 	while (range--)
 	{
