@@ -201,33 +201,40 @@ void	divide_three(t_decue_addr *p, int pivot_1, int pivot_2)
 		pb(p);
 }
 
-/*
-void	get_pivot(int *pivot_1_adr, int *pivot_2_adr, t_decue *head)
-{
-	if (get_stack_size(head) == p->size)
-	{
-		
-	}
-}
-*/
-
-int	get_next_pivot(t_decue_addr *p, int pivot)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (p->idx_chamber[i] != pivot)
-		i++;
-	i /= 2;
-	return (p->idx_chamber[i]);
-}
-
 void	rewind(t_decue_addr *p, unsigned int ra_count, unsigned int rb_count)
 {
 	while (ra_count--)
 		rra(p);
 	while (rb_count--)
 		rrb(p);
+}
+
+int	get_next_pivot(t_decue_addr *p, int pivot, unsigned int p_count)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (p->idx_chamber[i] != pivot)
+		i++;
+	if (p_count == 1)
+		i -= 1;
+	else
+		i -= p_count / 2;
+	return (p->idx_chamber[i]);
+}
+
+int	get_bigger_pivot(t_decue_addr *p, int pivot, unsigned int p_count)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (p->idx_chamber[i] != pivot)
+		i++;
+	if (p_count == 1)
+		i += 1;
+	else
+		i += p_count / 2;
+	return (p->idx_chamber[i]);
 }
 
 void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
@@ -243,9 +250,10 @@ void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 		pa(p);
 		return ;
 	}
+	pivot = get_bigger_pivot(p, pivot, range);
 	while (range--)
 	{
-		if (p->b_top->val >= pivot)
+		if (p->b_top->val < pivot)
 		{
 			pa(p);
 			pa_count++;
@@ -257,10 +265,9 @@ void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 		}
 	}
 	rewind(p, 0, rb_count);
-	next_pivot = get_next_pivot(p, pivot);
-	a_to_b_recur(p, next_pivot, pa_count);
-	b_to_a_recur(p, next_pivot, rb_count);
-	
+	next_pivot = get_next_pivot(p, pivot, pa_count);
+	a_to_b_recur(p, next_pivot, pa_count); //pa 한 만큼 b에 올려놓아라.
+	b_to_a_recur(p, pivot, rb_count);
 }
 
 void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
@@ -287,7 +294,7 @@ void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
 		}
 	}
 	rewind(p, ra_count, 0);
-	next_pivot = get_next_pivot(p, pivot);
+	next_pivot = get_next_pivot(p, pivot, pb_count);
 	a_to_b_recur(p, next_pivot, ra_count);
-	b_to_a_recur(p, next_pivot, pb_count); //pb 한만큼 a스택에 올려놓아라.
+	b_to_a_recur(p, pivot, pb_count); //pb 한만큼 a스택에 올려놓아라.
 } 
