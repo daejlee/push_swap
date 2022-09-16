@@ -200,6 +200,7 @@ int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
 	char			**arg_arr;
+	unsigned int	temp;
 
 	if (argc == 1)
 		return (1);
@@ -221,7 +222,18 @@ int	main(int argc, char **argv)
 	if (p->size < 6)
 		low_arg_sort(p);
 	else
+	{
 		a_to_b_recur(p, p->idx_chamber[p->size / 2], p->size);
-	print_stack(p);
+		temp = p->size;
+		while (temp--)
+			pb(p);
+		while (p->size--)
+		{
+			ra(p);
+			pa(p);
+		}
+		ra(p);
+	}
+	//print_stack(p);
 	return (purge_lst(p));
 }
