@@ -15,21 +15,7 @@
 #include "./libft_garage/ft_printf/ft_printf.h"
 #include <unistd.h>
 #include <stdlib.h>
-
-//./push_swap 1 2 7 11 22 927 731 33
-
-/*static void	swap_b_with_a(t_decue_addr *p)
-{
-	t_decue	*temp1;
-
-	temp1 = p->a_top;
-	p->a_top = p->b_top;
-	p->b_top = temp1;
-	temp1 = p->a_bottom;
-	p->a_bottom = p->b_bottom;
-	p->b_bottom = temp1;
-}*/
-
+/*
 void	print_stack(t_decue_addr *p)
 {
 	t_decue	*head;
@@ -69,6 +55,7 @@ void	print_stack(t_decue_addr *p)
 	}
 	ft_printf("-\nb\n");
 }
+*/
 
 unsigned int	get_dig(unsigned int val, unsigned int div)
 {
@@ -234,6 +221,5 @@ int	main(int argc, char **argv)
 		}
 		ra(p);
 	}
-	//print_stack(p);
 	return (purge_lst(p));
 }

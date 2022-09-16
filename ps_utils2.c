@@ -64,3 +64,44 @@ t_decue_addr	*init_p(void)
 	ret->size = 0;
 	return (ret);
 }
+
+int	is_int(char **argv)
+{
+	unsigned int	i;
+	char			*temp;
+
+	i = 0;
+	while (argv[i])
+	{
+		temp = ft_itoa(ft_atoi(argv[i]));
+		if (ft_strncmp(temp, argv[i], ft_strlen(argv[i])))
+		{
+			free (temp);
+			return (1);
+		}
+		i++;
+		free (temp);
+	}
+	return (0);
+}
+
+int	is_there_dup(char **argv)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (argv[i])
+	{
+		j = i + 1;
+		while (argv[j])
+		{
+			if (ft_strlen(argv[i]) == ft_strlen(argv[j])
+				&& !ft_strncmp(argv[i], argv[j], ft_strlen(argv[i])))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}

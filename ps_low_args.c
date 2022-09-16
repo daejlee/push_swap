@@ -49,25 +49,6 @@ static void	four_args(t_decue_addr *p)
 	pa(p);
 }
 
-/*
-static void	get_min_max(t_decue_addr *p, int *min, int *max)
-{
-	t_decue	*targ;
-
-	targ = p->a_top->next;
-	*min = p->a_top->val;
-	*max = p->a_top->val;
-	while (targ)
-	{
-		if (targ->val < *min)
-			*min = targ->val;
-		if (targ->val > *max)
-			*max = targ->val;
-		targ = targ->next;
-	}
-}
-*/
-
 static void	five_args(t_decue_addr *p)
 {
 	while (p->a_top->val != p->max && p->a_top->val != p->min)

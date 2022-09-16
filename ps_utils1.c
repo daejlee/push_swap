@@ -15,48 +15,6 @@
 #include "./libft_garage/ft_printf/ft_printf.h"
 #include <stdlib.h>
 
-int	is_int(char **argv)
-{
-	unsigned int	i;
-	char			*temp;
-
-	i = 0;
-	while (argv[i])
-	{
-		
-		temp = ft_itoa(ft_atoi(argv[i]));
-		if (ft_strncmp(temp, argv[i], ft_strlen(argv[i])))
-		{
-			free (temp);
-			return (1);
-		}
-		i++;
-		free (temp);
-	}
-	return (0);
-}
-
-int	is_there_dup(char **argv)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (argv[i])
-	{
-		j = i + 1;
-		while (argv[j])
-		{
-			if (ft_strlen(argv[i]) == ft_strlen(argv[j])
-				&& !ft_strncmp(argv[i], argv[j], ft_strlen(argv[i])))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
 int	check_already_sorted(t_decue *head)
 {
 	while (head && head->next)
@@ -66,7 +24,6 @@ int	check_already_sorted(t_decue *head)
 		else
 			head = head->next;
 	}
-	//ft_printf ("\n");
 	return (1);
 }
 
@@ -83,7 +40,7 @@ static t_decue	*get_a_top(t_decue_addr *p, char *arg)
 	return (top);
 }
 
-void	get_min_max(t_decue_addr *p)
+static void	get_min_max(t_decue_addr *p)
 {
 	t_decue	*target;
 
@@ -104,7 +61,7 @@ void	get_min_max(t_decue_addr *p)
 		p->u_max = p->max;
 }
 
-void	set_u_val(t_decue_addr *p)
+static void	set_u_val(t_decue_addr *p)
 {
 	t_decue	*target;
 
