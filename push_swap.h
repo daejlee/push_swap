@@ -68,5 +68,7 @@ void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
 void			low_arg_sort(t_decue_addr *p);
 void			a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range);
 unsigned int	get_stack_idx(t_decue *top, int chamber_val);
+void			recur_less_range(t_decue *top, unsigned int range, t_decue_addr *p);
+void			rewind(t_decue_addr *p, unsigned int ra_count, unsigned int rb_count);
 
 #endif
