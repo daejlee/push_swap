@@ -49,6 +49,75 @@ int	get_bigger_pivot(t_decue_addr *p, int pivot, unsigned int p_count)
 	return (p->idx_chamber[i]);
 }
 
+void	recur_three_range(t_decue *top, t_decue_addr *p)
+{
+	if (top->val > top->next->val &&
+			top->next->val > top->next->next->val)
+		return ;
+	else if (top->next->val < top->next->next->val)
+	{
+		if (top->val < top->next->val)
+		{
+			sa(p);
+			ra(p);
+			ra(p);
+			pb(p);
+			rra(p);
+			rra(p);
+			pa(p);
+		}
+		else if (top->val > top->next->next->val)
+		{
+			pb(p);
+			sa(p);
+			pa(p);
+		}
+		else
+		{
+			ra(p);
+			ra(p);
+			pb(p);
+			rra(p);
+			rra(p);
+			pa(p);
+		}
+	}
+	else
+	{
+		if (top->val < top->next->next->val)
+		{
+			ra(p);
+			pb(p);
+			pb(p);
+			rra(p);
+			pa(p);
+			pa(p);
+		}
+		else
+			sa(p);
+	}
+}
+
+void	recur_less_range(t_decue *top, unsigned int range, t_decue_addr *p)
+{
+	unsigned int	temp;
+
+	temp = range;
+	if (top == p->b_top)
+	{
+		while (temp--)
+			pa(p);
+		top = p->a_top;
+	}
+	if (range == 3)
+		recur_three_range(p->a_top, p);
+	if (range == 2)
+	{
+		if (top->val < top->next->val)
+				sa(p);
+	}
+}
+
 void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 {
 	unsigned int	pa_count;
@@ -56,8 +125,8 @@ void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 
 	pa_count = 0;
 	rb_count = 0;
-	if (range <= 1)
-		return (pa(p));
+	if (range <= 3)
+		return (recur_less_range(p->b_top, range, p));
 	pivot = get_bigger_pivot(p, pivot, range);
 	while (range--)
 	{
@@ -84,8 +153,8 @@ void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
 
 	pb_count = 0;
 	ra_count = 0;
-	if (range <= 1)
-		return ;
+	if (range <= 3)
+		return (recur_less_range(p->a_top, range, p));
 	while (range--)
 	{
 		if (p->a_top->val >= pivot)
