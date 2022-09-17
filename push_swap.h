@@ -9,7 +9,6 @@
 /*   Updated: 2022/09/09 15:07:21 by daejlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -48,10 +47,7 @@ void			rr(t_decue_addr *p);
 void			rra(t_decue_addr *p);
 void			rrb(t_decue_addr *p);
 void			rrr(t_decue_addr *p);
-void			print_stack(t_decue_addr *p);
 unsigned int	get_dig(unsigned int val, unsigned int div);
-unsigned int	get_count(unsigned int *arr, unsigned int div,
-					unsigned int pushing_int, unsigned int size);
 int				is_int(char **argv);
 int				is_there_dup(char **argv);
 int				check_already_sorted(t_decue *head);
@@ -59,16 +55,12 @@ t_decue_addr	*init_p(void);
 unsigned int	push_args_to_a(char **argv, t_decue_addr *p);
 int				print_err(void);
 int				purge_lst(t_decue_addr *p);
-void			push_and_rev_b(t_decue_addr *p, unsigned int count,
-					unsigned int pushing_int, unsigned int div);
-void			sort_loop_to_b(t_decue_addr *p, unsigned int div);
-void			push_and_rev_a(t_decue_addr *p, unsigned int count,
-					unsigned int pushing_int, unsigned int div);
-void			sort_loop_to_a(t_decue_addr *p, unsigned int div);
 void			low_arg_sort(t_decue_addr *p);
+int				*radix_sort(t_decue_addr *p);
 void			a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range);
-unsigned int	get_stack_idx(t_decue *top, int chamber_val);
-void			recur_less_range(t_decue *top, unsigned int range, t_decue_addr *p);
-void			rewind(t_decue_addr *p, unsigned int ra_count, unsigned int rb_count);
+void			recur_less_range(t_decue *top, unsigned int range,
+					t_decue_addr *p);
+void			rewind(t_decue_addr *p, unsigned int ra_count,
+					unsigned int rb_count);
 
 #endif
