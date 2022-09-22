@@ -65,16 +65,16 @@ t_decue_addr	*init_p(void)
 	return (ret);
 }
 
-int	is_int(char **argv)
+int	is_int(char **arg_arr)
 {
 	unsigned int	i;
 	char			*temp;
 
 	i = 0;
-	while (argv[i])
+	while (arg_arr[i])
 	{
-		temp = ft_itoa(ft_atoi(argv[i]));
-		if (ft_strncmp(temp, argv[i], ft_strlen(argv[i])))
+		temp = ft_itoa(ft_atoi(arg_arr[i]));
+		if (ft_strncmp(temp, arg_arr[i], ft_strlen(arg_arr[i])))
 		{
 			free (temp);
 			return (1);
@@ -85,19 +85,19 @@ int	is_int(char **argv)
 	return (0);
 }
 
-int	is_there_dup(char **argv)
+int	is_there_dup(char **arg_arr)
 {
 	unsigned int	i;
 	unsigned int	j;
 
 	i = 0;
-	while (argv[i])
+	while (arg_arr[i])
 	{
 		j = i + 1;
-		while (argv[j])
+		while (arg_arr[j])
 		{
-			if (ft_strlen(argv[i]) == ft_strlen(argv[j])
-				&& !ft_strncmp(argv[i], argv[j], ft_strlen(argv[i])))
+			if (ft_strlen(arg_arr[i]) == ft_strlen(arg_arr[j])
+				&& !ft_strncmp(arg_arr[i], arg_arr[j], ft_strlen(arg_arr[i])))
 				return (1);
 			j++;
 		}

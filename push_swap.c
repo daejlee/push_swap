@@ -68,6 +68,82 @@ void	ignite_recur(t_decue_addr *p)
 	ra(p);
 }
 
+void	*free_arg(char **ret)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!ret)
+		return (NULL);
+	while (ret[i])
+		free (ret[i++]);
+	free (ret);
+	return (NULL);
+}
+
+char	**get_slots(char **argv)
+{
+	char			**ret;
+	unsigned int	i;
+	unsigned int	k;
+	unsigned int	j;
+
+	i = 1;
+	k = 0;
+	while (argv[i])
+	{
+		if (!argv[i][0])
+			return (NULL);
+		else if (ft_strchr(argv[i], ' ' ))
+		{
+			j = 0;
+			while (argv[i][j])
+			{
+				if (argv[i][j++] == ' ')
+					k++;
+			}
+		}
+		else
+			k++;
+		i++;
+	}
+	ret = (char **)malloc(sizeof (char *) * (k + 2));
+	ret[k + 1] = NULL;
+	return (ret);
+}
+
+char	**parse_arg(char **argv)
+{
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	k;
+	char			**ret;
+	char			**temp;
+
+	i = 1;
+	k = 0;
+	ret = get_slots(argv);
+	if (!ret)
+		return (NULL);
+	while (argv[i])
+	{
+		if (ft_strchr(argv[i], ' '))
+		{
+			temp = ft_split(argv[i], ' ');
+			if (!temp)
+				return (free_arg(ret));
+			j = 0;
+			while (temp[j])
+				ret[k++] = temp[j++];
+			free (temp);
+		}
+		else
+			ret[k++] = ft_strdup(argv[i]);
+		i++;
+	}
+	return (ret);
+}
+
 int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
@@ -75,13 +151,12 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (1);
-	else if (argc == 2)
-		arg_arr = ft_split(argv[1], ' ');
-	else
-		arg_arr = argv + 1;
-	if (is_int(arg_arr) || is_there_dup(arg_arr))
+	arg_arr = parse_arg(argv);
+	if (!arg_arr || is_int(arg_arr) || is_there_dup(arg_arr))
 		return (print_err());
 	p = prep_sort(arg_arr);
+	if (!p)
+		return (1);
 	if (p->size < 6)
 		low_arg_sort(p);
 	else

@@ -97,6 +97,7 @@ unsigned int	push_args_to_a(char **argv, t_decue_addr *p)
 		temp1 = temp2;
 		i++;
 	}
+	free_arg(argv);
 	temp1->next = NULL;
 	p->a_bottom = temp1;
 	get_min_max(p);

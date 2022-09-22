@@ -48,8 +48,8 @@ void			rra(t_decue_addr *p);
 void			rrb(t_decue_addr *p);
 void			rrr(t_decue_addr *p);
 unsigned int	get_dig(unsigned int val, unsigned int div);
-int				is_int(char **argv);
-int				is_there_dup(char **argv);
+int				is_int(char **arg_arr);
+int				is_there_dup(char **arg_arr);
 int				check_already_sorted(t_decue *head);
 t_decue_addr	*init_p(void);
 unsigned int	push_args_to_a(char **argv, t_decue_addr *p);
@@ -62,5 +62,6 @@ void			recur_less_range(t_decue *top, unsigned int range,
 					t_decue_addr *p);
 void			rewind(t_decue_addr *p, unsigned int ra_count,
 					unsigned int rb_count);
+void			*free_arg(char **ret);
 
 #endif
