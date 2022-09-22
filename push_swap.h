@@ -63,5 +63,6 @@ void			recur_less_range(t_decue *top, unsigned int range,
 void			rewind(t_decue_addr *p, unsigned int ra_count,
 					unsigned int rb_count);
 void			*free_arg(char **ret);
+char			**parse_arg(char **argv);
 
 #endif
