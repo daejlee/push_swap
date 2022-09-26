@@ -95,6 +95,7 @@ static int	*trim_idx_chamber(unsigned int *temp1, t_decue_addr *p)
 			i++;
 		}
 	}
+	free (temp1);
 	return (ret);
 }
 

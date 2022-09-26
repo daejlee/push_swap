@@ -13,12 +13,12 @@
 #include "./push_swap.h"
 #include "./libft_garage/ft_printf/ft_printf.h"
 
-void	pa(t_decue_addr *p)
+int	pa(t_decue_addr *p)
 {
 	t_decue	*temp;
 
 	if (!p->b_top)
-		return ;
+		return (0);
 	if (p->b_top->next)
 		p->b_top->next->previous = NULL;
 	if (p->a_top)
@@ -39,15 +39,15 @@ void	pa(t_decue_addr *p)
 		p->a_top->next = NULL;
 		p->b_top = temp;
 	}
-	ft_printf("pa\n");
+	return (ft_printf("pa\n") - 2);
 }
 
-void	pb(t_decue_addr *p)
+int	pb(t_decue_addr *p)
 {
 	t_decue	*temp;
 
 	if (!p->a_top)
-		return ;
+		return (0);
 	if (p->a_top->next)
 		p->a_top->next->previous = NULL;
 	if (p->b_top)
@@ -68,15 +68,15 @@ void	pb(t_decue_addr *p)
 		p->b_top->next = NULL;
 		p->a_top = temp;
 	}
-	ft_printf("pb\n");
+	return (ft_printf("pb\n") - 2);
 }
 
-void	ra(t_decue_addr *p)
+int	ra(t_decue_addr *p)
 {
 	t_decue	*temp;
 
 	if (!p->a_top || !p->a_top->next)
-		return ;
+		return (0);
 	p->a_top->previous = p->a_bottom;
 	p->a_bottom->next = p->a_top;
 	if (p->a_top->next)
@@ -85,15 +85,15 @@ void	ra(t_decue_addr *p)
 	p->a_top->next = NULL;
 	p->a_top = temp;
 	p->a_bottom = p->a_bottom->next;
-	ft_printf("ra\n");
+	return (ft_printf("ra\n") - 2);
 }
 
-void	rb(t_decue_addr *p)
+int	rb(t_decue_addr *p)
 {
 	t_decue	*temp;
 
 	if (!p->b_top || !p->b_top->next)
-		return ;
+		return (0);
 	p->b_top->previous = p->b_bottom;
 	p->b_bottom->next = p->b_top;
 	if (p->b_top->next)
@@ -102,15 +102,15 @@ void	rb(t_decue_addr *p)
 	p->b_top->next = NULL;
 	p->b_top = temp;
 	p->b_bottom = p->b_bottom->next;
-	ft_printf("rb\n");
+	return (ft_printf("rb\n") - 2);
 }
 
-void	rr(t_decue_addr *p)
+int	rr(t_decue_addr *p)
 {
 	t_decue	*temp;
 
-	if (!p->a_top || !p->a_top->next)
-		return ;
+	if (!p->a_top || !p->a_top->next || !p->b_top || !p->b_top->next)
+		return (0);
 	p->a_top->previous = p->a_bottom;
 	p->a_bottom->next = p->a_top;
 	if (p->a_top->next)
@@ -119,8 +119,6 @@ void	rr(t_decue_addr *p)
 	p->a_top->next = NULL;
 	p->a_top = temp;
 	p->a_bottom = p->a_bottom->next;
-	if (!p->b_top || !p->b_top->next)
-		return ;
 	p->b_top->previous = p->b_bottom;
 	p->b_bottom->next = p->b_top;
 	if (p->b_top->next)
@@ -129,5 +127,5 @@ void	rr(t_decue_addr *p)
 	p->b_top->next = NULL;
 	p->b_top = temp;
 	p->b_bottom = p->b_bottom->next;
-	ft_printf("rr\n");
+	return (ft_printf("rr\n") - 2);
 }

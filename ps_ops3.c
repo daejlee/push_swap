@@ -14,12 +14,12 @@
 #include <stdlib.h>
 #include "./libft_garage/ft_printf/ft_printf.h"
 
-void	rra(t_decue_addr *p)
+int	rra(t_decue_addr *p)
 {
 	t_decue	*temp;
 
 	if (!p->a_bottom || !p->a_bottom->previous)
-		return ;
+		return (0);
 	p->a_bottom->next = p->a_top;
 	if (p->a_bottom->previous)
 		p->a_bottom->previous->next = NULL;
@@ -28,15 +28,15 @@ void	rra(t_decue_addr *p)
 	p->a_top->previous = p->a_bottom;
 	p->a_top = p->a_bottom;
 	p->a_bottom = temp;
-	ft_printf("rra\n");
+	return (ft_printf("rra\n") - 3);
 }
 
-void	rrb(t_decue_addr *p)
+int	rrb(t_decue_addr *p)
 {
 	t_decue	*temp;
 
 	if (!p->b_bottom || !p->b_bottom->previous)
-		return ;
+		return (0);
 	p->b_bottom->next = p->b_top;
 	if (p->b_bottom->previous)
 		p->b_bottom->previous->next = NULL;
@@ -45,15 +45,16 @@ void	rrb(t_decue_addr *p)
 	p->b_top->previous = p->b_bottom;
 	p->b_top = p->b_bottom;
 	p->b_bottom = temp;
-	ft_printf("rrb\n");
+	return (ft_printf("rrb\n") - 3);
 }
 
-void	rrr(t_decue_addr *p)
+int	rrr(t_decue_addr *p)
 {
 	t_decue	*temp;
 
-	if (!p->a_bottom || !p->a_bottom->previous)
-		return ;
+	if (!p->a_bottom || !p->a_bottom->previous
+		|| !p->b_bottom || !p->b_bottom->previous)
+		return (0);
 	p->a_bottom->next = p->a_top;
 	if (p->a_bottom->previous)
 		p->a_bottom->previous->next = NULL;
@@ -62,8 +63,6 @@ void	rrr(t_decue_addr *p)
 	p->a_top->previous = p->a_bottom;
 	p->a_top = p->a_bottom;
 	p->a_bottom = temp;
-	if (!p->b_bottom || !p->b_bottom->previous)
-		return ;
 	p->b_bottom->next = p->b_top;
 	if (p->b_bottom->previous)
 		p->b_bottom->previous->next = NULL;
@@ -72,5 +71,5 @@ void	rrr(t_decue_addr *p)
 	p->b_top->previous = p->b_bottom;
 	p->b_top = p->b_bottom;
 	p->b_bottom = temp;
-	ft_printf("rrr\n");
+	return (ft_printf("rrr\n") - 3);
 }
