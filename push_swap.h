@@ -32,8 +32,8 @@ typedef struct s_decue_addr
 	int				max;
 	int				u_max;
 	int				min;
-	int				big_p;
-	int				small_p;
+	int				pivot1;
+	int				pivot2;
 }	t_decue_addr;
 
 void			sa(t_decue_addr *p);
@@ -64,5 +64,6 @@ void			rewind(t_decue_addr *p, unsigned int ra_count,
 					unsigned int rb_count);
 void			*free_arg(char **ret);
 char			**parse_arg(char **argv);
+void			print_stack(t_decue_addr *p);
 
 #endif

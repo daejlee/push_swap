@@ -52,22 +52,6 @@ t_decue_addr	*prep_sort(char **arg_arr)
 	return (ret);
 }
 
-void	ignite_recur(t_decue_addr *p)
-{
-	unsigned int	temp;
-
-	a_to_b_recur(p, p->idx_chamber[p->size / 2], p->size);
-	temp = p->size;
-	while (temp--)
-		pb(p);
-	while (p->size--)
-	{
-		ra(p);
-		pa(p);
-	}
-	ra(p);
-}
-
 int	main(int argc, char **argv)
 {
 	t_decue_addr	*p;
@@ -84,6 +68,7 @@ int	main(int argc, char **argv)
 	if (p->size < 6)
 		low_arg_sort(p);
 	else
-		ignite_recur(p);
+		a_to_b_recur(p, p->idx_chamber[0], p->size);
+	//print_stack(p);
 	return (purge_lst(p));
 }

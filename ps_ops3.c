@@ -50,6 +50,27 @@ void	rrb(t_decue_addr *p)
 
 void	rrr(t_decue_addr *p)
 {
-	rra(p);
-	rrb(p);
+	t_decue	*temp;
+
+	if (!p->a_bottom || !p->a_bottom->previous)
+		return ;
+	p->a_bottom->next = p->a_top;
+	if (p->a_bottom->previous)
+		p->a_bottom->previous->next = NULL;
+	temp = p->a_bottom->previous;
+	p->a_bottom->previous = NULL;
+	p->a_top->previous = p->a_bottom;
+	p->a_top = p->a_bottom;
+	p->a_bottom = temp;
+	if (!p->b_bottom || !p->b_bottom->previous)
+		return ;
+	p->b_bottom->next = p->b_top;
+	if (p->b_bottom->previous)
+		p->b_bottom->previous->next = NULL;
+	temp = p->b_bottom->previous;
+	p->b_bottom->previous = NULL;
+	p->b_top->previous = p->b_bottom;
+	p->b_top = p->b_bottom;
+	p->b_bottom = temp;
+	ft_printf("rrr\n");
 }

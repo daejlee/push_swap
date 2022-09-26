@@ -13,7 +13,7 @@
 
 static void	part(t_decue *top, t_decue_addr *p)
 {
-	if (top->val < top->next->val)
+	if (top->val > top->next->val)
 	{
 		sa(p);
 		ra(p);
@@ -23,7 +23,7 @@ static void	part(t_decue *top, t_decue_addr *p)
 		rra(p);
 		pa(p);
 	}
-	else if (top->val > top->next->next->val)
+	else if (top->val < top->next->next->val)
 	{
 		pb(p);
 		sa(p);
@@ -42,14 +42,14 @@ static void	part(t_decue *top, t_decue_addr *p)
 
 static void	recur_three_range(t_decue *top, t_decue_addr *p)
 {
-	if (top->val > top->next->val
-		&& top->next->val > top->next->next->val)
+	if (top->val < top->next->val
+		&& top->next->val < top->next->next->val)
 		return ;
-	else if (top->next->val < top->next->next->val)
+	else if (top->next->val > top->next->next->val)
 		part(top, p);
 	else
 	{
-		if (top->val < top->next->next->val)
+		if (top->val > top->next->next->val)
 		{
 			ra(p);
 			pb(p);
@@ -78,7 +78,7 @@ void	recur_less_range(t_decue *top, unsigned int range, t_decue_addr *p)
 		recur_three_range(p->a_top, p);
 	else if (range == 2)
 	{
-		if (top->val < top->next->val)
+		if (top->val > top->next->val)
 			sa(p);
 	}
 }
