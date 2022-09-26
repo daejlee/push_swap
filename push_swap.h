@@ -36,6 +36,14 @@ typedef struct s_decue_addr
 	int				pivot2;
 }	t_decue_addr;
 
+typedef struct s_com_count
+{
+	unsigned int	pa_count;
+	unsigned int	pb_count;
+	unsigned int	ra_count;
+	unsigned int	rb_count;
+}	t_com_count;
+
 void			sa(t_decue_addr *p);
 void			sb(t_decue_addr *p);
 void			ss(t_decue_addr *p);

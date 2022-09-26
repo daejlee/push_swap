@@ -76,13 +76,11 @@ void	get_next_pivot2(t_decue_addr *p, int pivot, unsigned int range)
 
 void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 {
-	unsigned int	pa_count;
-	unsigned int	ra_count;
-	unsigned int	rb_count;
+	t_com_count	c;
 
-	ra_count = 0;
-	rb_count = 0;
-	pa_count = 0;
+	c.ra_count = 0;
+	c.rb_count = 0;
+	c.pa_count = 0;
 	if (range <= 3)
 		return (recur_less_range(p->b_top, range, p));
 	get_next_pivot2(p, pivot, range);
@@ -90,28 +88,26 @@ void	b_to_a_recur(t_decue_addr *p, int pivot, unsigned int range)
 	{
 		if (p->b_top->val >= p->pivot1)
 		{
-			pa_count += pa(p);
+			c.pa_count += pa(p);
 			if (p->a_top->val < p->pivot2)
-				ra_count += ra(p);
+				c.ra_count += ra(p);
 		}
 		else
-			rb_count += rb(p);
+			c.rb_count += rb(p);
 	}
-	a_to_b_recur(p, p->pivot2, pa_count - ra_count);
-	rewind(p, ra_count, rb_count);
-	a_to_b_recur(p, p->pivot1, ra_count);
-	b_to_a_recur(p, p->pivot1, rb_count);
+	a_to_b_recur(p, p->pivot2, c.pa_count - c.ra_count);
+	rewind(p, c.ra_count, c.rb_count);
+	a_to_b_recur(p, p->pivot1, c.ra_count);
+	b_to_a_recur(p, p->pivot1, c.rb_count);
 }
 
 void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
 {
-	unsigned int	pb_count;
-	unsigned int	ra_count;
-	unsigned int	rb_count;
+	t_com_count	c;
 
-	pb_count = 0;
-	ra_count = 0;
-	rb_count = 0;
+	c.pb_count = 0;
+	c.ra_count = 0;
+	c.rb_count = 0;
 	if (check_already_sorted(p->a_top))
 		return ;
 	if (range <= 3)
@@ -121,15 +117,15 @@ void	a_to_b_recur(t_decue_addr *p, int pivot, unsigned int range)
 	{
 		if (p->a_top->val <= p->pivot2)
 		{
-			pb_count += pb(p);
+			c.pb_count += pb(p);
 			if (p->b_top->val >= p->pivot1)
-				rb_count += rb(p);
+				c.rb_count += rb(p);
 		}
 		else
-			ra_count += ra(p);
+			c.ra_count += ra(p);
 	}
-	rewind(p, ra_count, rb_count);
-	a_to_b_recur(p, p->pivot2, ra_count);
-	b_to_a_recur(p, p->pivot2, rb_count);
-	b_to_a_recur(p, p->pivot1, pb_count - rb_count);
+	rewind(p, c.ra_count, c.rb_count);
+	a_to_b_recur(p, p->pivot2, c.ra_count);
+	b_to_a_recur(p, p->pivot2, c.rb_count);
+	b_to_a_recur(p, p->pivot1, c.pb_count - c.rb_count);
 }
