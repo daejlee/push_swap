@@ -69,5 +69,6 @@ int	main(int argc, char **argv)
 		low_arg_sort(p);
 	else
 		a_to_b_recur(p, p->idx_chamber[0], p->size);
+	//print_stack(p);
 	return (purge_lst(p));
 }

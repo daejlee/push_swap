@@ -19,7 +19,7 @@ int	rra(t_decue_addr *p)
 	t_decue	*temp;
 
 	if (!p->a_bottom || !p->a_bottom->previous)
-		return (0);
+		return (1);
 	p->a_bottom->next = p->a_top;
 	if (p->a_bottom->previous)
 		p->a_bottom->previous->next = NULL;
@@ -36,7 +36,7 @@ int	rrb(t_decue_addr *p)
 	t_decue	*temp;
 
 	if (!p->b_bottom || !p->b_bottom->previous)
-		return (0);
+		return (1);
 	p->b_bottom->next = p->b_top;
 	if (p->b_bottom->previous)
 		p->b_bottom->previous->next = NULL;
@@ -54,7 +54,7 @@ int	rrr(t_decue_addr *p)
 
 	if (!p->a_bottom || !p->a_bottom->previous
 		|| !p->b_bottom || !p->b_bottom->previous)
-		return (0);
+		return (1);
 	p->a_bottom->next = p->a_top;
 	if (p->a_bottom->previous)
 		p->a_bottom->previous->next = NULL;
